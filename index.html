@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/8c83a113b4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-saladinoICONO.png" />
+    <title>Medios de Representación</title>
+</head>
+
+<body>
+    <div class="contlogo"><img src="logo-saladino.png" alt="Logo-Consultora-Saladino"></div>
+    <div class="contenedor-general1">
+        <div class="contenedor-recom">
+            <div class="caja-recom">
+                <div class="test-nombre">
+                    <p>Test de programación neurolingüística (PNL)</p>
+                </div>
+                <div class="recom">
+                    <p>Recomendaciones</p>
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> El test no le tomará más de 15
+                        minutos, tómese su tiempo</p>
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Una vez avance al siguiente ítem
+                        no podrá volver atrás</p>
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Realice el test en un entorno
+                        tranquilo y silencioso</p>
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Escoja de cada opción la que más
+                        lo
+                        represente
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Evite racionalizar demasiado sus
+                        respuestas
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Evite salir de la página hasta
+                        finalizar el test</p>
+                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> No recargue la página hasta
+                        finalizar
+                        el test</p>
+                    </p>
+                    </p>
+                    <p>Al finalizar podrá volver a repetir el test</p>
+                </div>
+                <span class="btn" id="btn-comenzar"><button>Comenzar</button></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor-general2">
+        <div class="contenedor-item">
+            <div class="box-item">
+                <div class="box-consigna">
+                    <p id="p-consigna"></p>
+                </div>
+                <div class="box-palabra">
+                    <p id="p-palabra"></p>
+                </div>
+                <div class="box-pCasa">
+                    <p class="pCasa">A</p>
+                    <p class="pCasa">B</p>
+                    <p class="pCasa">C</p>
+                </div>
+                <div class="box-opciones">
+                    <input type="radio" name="opcion" id="opcion1" value="1">
+                    <label for="opcion1"></label>
+                    <input type="radio" name="opcion" id="opcion2" value="2">
+                    <label for="opcion2"></label>
+                    <input type="radio" name="opcion" id="opcion3" value="3">
+                    <label for="opcion3"></label>
+                </div>
+
+                <div class="box-opcionCasa">
+                    <p id="p-opcionCasa" class="p-opcionCasa"></p>
+                </div>
+                <span class="btn">
+                    <button id="btn-siguiente">Siguiente</button>
+                    <button id="btn-terminar">Terminar Test</button>
+                </span>
+                <div class="contadorItem">
+                    <p>Item</p>
+                    <p id="pContadorItem"></p>
+                </div>
+            </div>
+
+            <div class="box-resultado">
+                <div class="contenedor-resultado__titulo">
+                    <p>¡Felicitaciones! Tu puntaje es:</p>
+                    <div class="box-resultadoNro">
+                        <span>
+                            <p class="resultadoNro"></p>
+                            <p class="descResultadoNro">Visual</p>
+                        </span>
+                        <span>
+                            <p class="resultadoNro"></p>
+                            <p class="descResultadoNro">Auditivo</p>
+                        </span>
+                        <span>
+                            <p class="resultadoNro"></p>
+                            <p class="descResultadoNro">Kinésico</p>
+                        </span>
+                    </div>
+                    <p id="resultado__titutlo"></p>
+                </div>
+                <div class="box-imgResultado">
+                    <span id="spanResultado" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultado"></img></span>
+                    <span id="spanResultadoB" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoB"></img></span>
+                    <span id="spanResultadoC" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoC"></img></span>
+                </div>
+
+                <div class="contenedor-resultado__descripcion">
+                    <p id="resultadoDescripcion"></p>
+                </div>
+                <div class="box-otrosEstilos">
+                    <span class="separador"></span>
+                    <div class="otrosEstilos">
+                        <div class="div-otrosEstilos">
+                            <img src="" id="estiloAlternativo1">
+                            <p class="estilo1"></p>
+                        </div>
+                        <div class="div-otrosEstilos" id="box-estilo2">
+                            <img src="" id="estiloAlternativo2">
+                            <p class="estilo2"></p>
+                        </div>
+                    </div>
+                    <span class="span__boton">
+                        <button id="conocerMas">Conocer otros estilos</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
