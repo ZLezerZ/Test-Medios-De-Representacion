@@ -118,7 +118,7 @@ const resultados = [
         descripcion: `<strong>Procesamiento mental:</strong> Pensás principalmente mediante imágenes que se suceden con rapidez en tu cerebro, por lo que podés impacientarte con personas que van más despacio.<br><br>` +
             `<strong>Aprendizaje:</strong> Tendés a pensar en imágenes y a relacionarlas con ideas y conceptos. Necesitás que te dejen ver lo que te están diciendo para asimilar verdaderamente la información.<br><br>` +
             `<strong>Voz y ritmo:</strong> Hablás rápidamente y en un tono más alto para poder seguir la velocidad de tus imágenes mentales.<br><br>` +
-            `<strong>Vocabulario:</strong> Usás palabras como "mirar", "foco" o "perspectiva", y frases como "ya veo lo que querés decir" o "el futuro parece brillante".`,
+            `<strong>Vocabulario:</strong> Usás palabras como "mirar", "foco" o "perspectiva" y frases como "ya veo lo que querés decir" o "el futuro parece brillante".`,
         resultadoImg: "visual-style.png",
     },
     {
@@ -126,7 +126,7 @@ const resultados = [
         descripcion: `<strong>Procesamiento mental:</strong> Tenés una voz interior que crea un diálogo continuo con el que probás argumentaciones, ensayás respuestas y reflexionás.<br><br>` +
             `<strong>Aprendizaje:</strong> Tendés a recordar mejor la información rememorando una explicación oral. Para aprender necesitás escuchar las ideas de forma alta y clara.<br><br>` +
             `<strong>Voz y ritmo:</strong> Tu tono de voz es claro, expresivo y resonante.<br><br>` +
-            `<strong>Vocabulario:</strong> Preferís palabras como "sonido", "ritmo" o "armonioso", y te expresás con frases como "en la misma onda" o "me suena a chino".`,
+            `<strong>Vocabulario:</strong> Preferís palabras como "sonido", "ritmo" o "armonioso" y te expresás con frases como "en la misma onda" o "me suena a chino".`,
         resultadoImg: "auditivo-style.png",
     },
     {
@@ -134,7 +134,7 @@ const resultados = [
         descripcion: `<strong>Procesamiento mental:</strong> Basás tus actuaciones a partir de tus sentimientos y sensaciones en cada situación.<br><br>` +
             `<strong>Aprendizaje:</strong> Tu aprendizaje está relacionado a tus sensaciones y movimientos. Para comprender realmente un tema, necesitás poder sentir los mensajes.<br><br>` +
             `<strong>Voz y ritmo:</strong> Hablás lentamente, con largas pausas, y tu voz tiene un tono más profundo.<br><br>` +
-            `<strong>Vocabulario:</strong> Elegís palabras como "tocar", "sólido" o "presión", y usás frases como "estaremos en contacto", "lo siento en el alma" o "bases firmes".`,
+            `<strong>Vocabulario:</strong> Elegís palabras como "tocar", "sólido" o "presión" y usás frases como "estaremos en contacto", "lo siento en el alma" o "bases firmes".`,
         resultadoImg: "kinestesico-style.png",
     },
 ];
