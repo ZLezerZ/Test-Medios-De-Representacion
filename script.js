@@ -1,4 +1,10 @@
-let items = [
+/* ============================================================
+   TEST DE MEDIOS DE REPRESENTACIÓN – script.js
+   Consultora Saladino
+   ============================================================ */
+
+// ── DATOS ──────────────────────────────────────────────────
+const items = [
     {
         consigna: "¿Cuáles de las opciones te representa mejor esta palabra?",
         palabra: "Revelar",
@@ -90,7 +96,7 @@ let items = [
         ]
     },
     {
-        consigna: " Cierra tus ojos e imagina que vas llegando a la playa ¿Qué sucedió primero en tu mente?",
+        consigna: "Cierra tus ojos e imagina que vas llegando a la playa ¿Qué sucedió primero en tu mente?",
         opciones: [
             { texto: "Te imaginaste el mar, el cielo y viste el panorama en general. Quizá te fijaste primero en el hotel y su playa.", valor: "1" },
             { texto: "Escuchaste el sonido del mar y el graznido de las gaviotas, o el sonido de las palmeras con la brisa.", valor: "2" },
@@ -102,336 +108,463 @@ let items = [
         opciones: [
             { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La primera casa</strong> está situada en un área tranquila y sin ruido y todo lo que escuchas cuando sales, son los sonidos de los pájaros cantando. Está tan bien construida, que no notas el ruido del vecino. El interior de ella resuena con un carácter armónico, tan agradable, que te preguntas cómo puedes dejar pasar esta oportunidad.", valor: "2" },
             { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La segunda casa</strong> es bastante pintoresca. Tiene un aspecto muy tradicional. Puedes ver que tiene una perspectiva novedosa del patio y de la vista del jardín. Tiene amplios ventanales para recibir mucha luz y poder disfrutar de una vista maravillosa. También te llaman la atención los brillantes colores del interior. Está claro que es una muy buena compra.", valor: "1" },
-            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La tercera casa</strong> no está solamente construida sólidamente, sino que tiene una sensación especial de calidez. No es frecuente que entres en contacto con un lugar que toca tantos aspectos importantes. Es bastante espaciosa para sentir que puedes moverte con libertad y al mismo tiempo, es suficientemente cálida para sentirte cómodo. dan ganas de disfrutarla de inmediato.", valor: "3" },
+            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La tercera casa</strong> no está solamente construida sólidamente, sino que tiene una sensación especial de calidez. No es frecuente que entres en contacto con un lugar que toca tantos aspectos importantes. Es bastante espaciosa para sentir que puedes moverte con libertad y al mismo tiempo, es suficientemente cálida para sentirte cómodo. Dan ganas de disfrutarla de inmediato.", valor: "3" },
         ]
     },
 ];
-let resultados = [
+
+const resultados = [
     {
         tipo: "visual",
         descripcion: '<strong>Visual:</strong> Tiendes a pensar en imágenes y a relacionarlas con ideas y conceptos. Ej. "Vi que me dijiste; Observo; Imagino".',
-        resultadoImg: "Visual.jpg",
+        resultadoImg: "visual-style.png",
     },
     {
         tipo: "auditivo",
         descripcion: '<strong>Auditivo:</strong> Tiendes a recordar mejor la información siguiendo y rememorando una explicación oral. Ej."En otras palabras; te escucho; Oye".',
-        resultadoImg: "Auditivo.jpg",
+        resultadoImg: "auditivo-style.png",
     },
     {
         tipo: "kinestésico",
         descripcion: '<strong>Kinestésico:</strong> Tu aprendizaje está relacionado a tus sensaciones y movimientos. Ej. "Siento, dame una mano; Lo tengo; Lo capto".',
-        resultadoImg: "Kinestesico.jpg",
+        resultadoImg: "kinestesico-style.png",
     },
 ];
-const opcionesConteo = {
-    1: 0,
-    2: 0,
-    3: 0,
-};
-const comenzarBtn = document.getElementById("btn-comenzar");
-const botonSiguiente = document.getElementById('btn-siguiente');
-const botonTerminar = document.getElementById('btn-terminar');
-const botonConocerMas = document.getElementById("conocerMas");
-const contenedor1 = document.querySelector(".contenedor-general1");
-const contenedor2 = document.querySelector(".contenedor-general2");
-const contenedorItem = document.querySelector(".contenedor-item");
-let itemActual = 0; // Para llevar un seguimiento del ítem actual
-let radioButtons = document.querySelectorAll('input[type="radio"]');
 
-botonSiguiente.addEventListener('click', presionarSiguiente);
-botonTerminar.addEventListener('click', presionarTerminar);
-botonConocerMas.addEventListener('click', presionarConocerMas);
+// ── ESTADO ─────────────────────────────────────────────────
+const opcionesConteo = { 1: 0, 2: 0, 3: 0 };
+let itemActual = 0;
 
+// ── REFERENCIAS DOM ────────────────────────────────────────
+const comenzarBtn       = document.getElementById("btn-comenzar");
+const botonSiguiente    = document.getElementById("btn-siguiente");
+const botonTerminar     = document.getElementById("btn-terminar");
+const botonConocerMas   = document.getElementById("conocerMas");
+const contenedor1       = document.querySelector(".contenedor-general1");
+const contenedor2       = document.querySelector(".contenedor-general2");
+const contenedorItem    = document.querySelector(".contenedor-item");
+const progressBar       = document.getElementById("progressBar");
+const errorMsg          = document.getElementById("errorMsg");
+const radioButtons      = document.querySelectorAll('input[type="radio"]');
+
+// ── EVENTOS ────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", function () {
-    // Agrega un evento/función de clic al botón "Comenzar".Oculta el primer contenedor y muestra el segundo.
     comenzarBtn.addEventListener("click", function () {
-        contenedor1.classList.add("aleja");
-        contenedor2.classList.add("aproxima");
-
+        contenedor1.classList.add("anim-salida");
         setTimeout(function () {
             contenedor1.style.display = "none";
             contenedor2.style.display = "flex";
             insertarItem();
-        }, 800);
+        }, 500);
     });
 });
-//FUNCIÓN PARA INSERTAR CONTENIDO EN LA TARJETA
+
+botonSiguiente.addEventListener("click", presionarSiguiente);
+botonTerminar.addEventListener("click", presionarTerminar);
+botonConocerMas.addEventListener("click", presionarConocerMas);
+document.getElementById("btn-reintentar").addEventListener("click", reintentar);
+document.getElementById("btn-descargar-img").addEventListener("click", descargarImagen);
+document.getElementById("btn-descargar-pdf").addEventListener("click", descargarPDF);
+
+// Ocultar mensaje de error al seleccionar una opción
+radioButtons.forEach(rb => {
+    rb.addEventListener("change", ocultarError);
+});
+
+// ── FUNCIONES PRINCIPALES ──────────────────────────────────
+
+/**
+ * Inserta el contenido del ítem actual en la tarjeta.
+ */
 function insertarItem() {
-    const totalItems = items.length;
-    const tarjetaActual = items[itemActual]
+    const totalItems   = items.length;
+    const tarjetaActual = items[itemActual];
+
+    // Actualizar consigna y palabra
     document.getElementById("p-consigna").textContent = tarjetaActual.consigna;
-    let pPalabra = document.getElementById("p-palabra");
-    pPalabra.textContent = tarjetaActual.palabra;
+    const pPalabra  = document.getElementById("p-palabra");
     const boxPalabra = document.querySelector(".box-palabra");
-    const boxOpcionCasa = document.querySelector(".box-opcionCasa");
-    const opciones = tarjetaActual.opciones;
-    let contadorItems = document.getElementById("pContadorItem");
-    contadorItems.textContent = itemActual + 1 + " / " + totalItems;
+    pPalabra.textContent = tarjetaActual.palabra || "";
+
+    // Actualizar barra de progreso
+    const progreso = ((itemActual) / totalItems) * 100;
+    progressBar.style.width = progreso + "%";
+
+    // Actualizar contador
+    document.getElementById("pContadorItem").textContent = (itemActual + 1) + " / " + totalItems;
+
+    // Insertar opciones
+    const opciones   = tarjetaActual.opciones;
+    const boxOpciones = document.querySelector(".box-opciones");
+    const boxConsigna = document.querySelector(".box-consigna");
+
     for (let i = 0; i < opciones.length; i++) {
         const input = document.getElementById(`opcion${i + 1}`);
         const label = document.querySelector(`label[for=opcion${i + 1}]`);
-        const pCasa = document.getElementsByClassName("pCasa");
-        const boxOpciones = document.querySelector(".box-opciones");
-        const pOpcionCasa = document.getElementById("p-opcionCasa");
         input.value = opciones[i].valor;
         label.innerHTML = opciones[i].texto;
-        if (itemActual === totalItems - 1) {
-            contenedorItem.classList.add("alargarItem");
-            boxOpciones.style.height = "75%";
-            //     // Establece el HTML con el ícono solo para la última pregunta
-            //     boxOpcionCasa.classList.add("box-opcionCasa-on");
-            //     label.innerHTML = opciones[i].icono;
-            //     label.classList.add("labelCasa");
-            //     pCasa[0].style.display = "flex";
-            //     pCasa[1].style.display = "flex";
-            //     pCasa[2].style.display = "flex";
-            //     boxOpciones.style.cssText = "flex-direction: row; height: 150px; border: none;";
-            //     // Pone todos los íconos en el color azul
-            //     label.addEventListener("click", function () {
-            //         const iconos = document.querySelectorAll('.fa-house-chimney');
-            //         iconos.forEach(icono => {
-            //             icono.style.color = '#002d92';
-            //         });
-            //         //Para poner el ícono seleccionado en blaco.
-            //         const iconoCasa = label.querySelector('.fa-house-chimney');
-            //         if (iconoCasa) {
-            //             iconoCasa.style.color = 'white';
-            //         }
-            //         pOpcionCasa.textContent = opciones[i].texto; //Inyecta la opción
-            //         boxOpcionCasa.classList.add("texto-aparece");
-            //     });
-            // } else {
-            //     // Si no es la última pregunta, muestra el texto normalmente
-            //     label.textContent = opciones[i].texto;
-        };
-    };
-    if (itemActual >= totalItems - 2) {
-        const boxConsigna = document.querySelector(".box-consigna");
-        boxConsigna.style.height = "30%";
-        boxPalabra.style.display = "none";
-    };
-
-};
-
-//FUNCIÓN AL TOCAR EL BOTÓN SIGUIENTE: se inserta info. de nueva tarjeta, se des selecciona el input y se incrementa el itemActual y se hace la lógica del test.
-function presionarSiguiente() {
-    const contenedor2 = document.querySelector(".contenedor-general2");
-    if (itemActual < items.length - 1 && validarClick(radioButtons)) {
-        itemActual++;
-        sumarValorElegido(); //Usamos esta función para sumar un +1 a la opción seleccionada.
-        //Animación
-        contenedor2.style.animation = "aleja .8s ease";
-        setTimeout(function () {
-            contenedor2.style.animation = "";
-            insertarItem(); //se inserta el contenido
-            // Animación de entrada
-            setTimeout(function () {
-                contenedor2.style.animation = "aproxima .8s ease";
-            }, 600);
-        }, 600);
     }
-    setTimeout(function () {
-        if (itemActual == items.length - 1) {
-            botonSiguiente.style.display = "none";
-            botonTerminar.style.display = "block";
-        };
-    }, 600);
-};
-//variables para botón conocer otros estilos:
-const imgEstiloAlt1 = document.getElementById('estiloAlternativo1');
-const imgEstiloAlt2 = document.getElementById('estiloAlternativo2');
-const descripcionEstilo1 = document.querySelector(".estilo1");
-const descripcionEstilo2 = document.querySelector(".estilo2");
-const boxEstilo2 = document.getElementById('box-estilo2');
-let otrosEstilos = document.querySelector(".otrosEstilos");
 
-function presionarTerminar() {
-    if (validarClick()) {
-        sumarValorElegido();
-        const boxItem = document.querySelector(".box-item");
-        const boxResultado = document.querySelector(".box-resultado");
-        const resultadoSpans = document.querySelectorAll(".spanResultadoImg");
-        const imgResultado = document.getElementById("imgResultado");
-        const imgResultadoB = document.getElementById("imgResultadoB");
-        const imgResultadoC = document.getElementById("imgResultadoC");
-        const pResultado = document.getElementById("resultadoDescripcion");
-        const resultadoNro = document.querySelectorAll(".resultadoNro");
-        const spanResultado = document.getElementById("spanResultado");
-        const spanResultadoB = document.getElementById("spanResultadoB");
-        const spanResultadoC = document.getElementById("spanResultadoC");
-        const boxOtrosEstilos = document.querySelector(".box-otrosEstilos");
-        for (let i = 0; i < 3; i++) {
-            resultadoNro[i].textContent = opcionesConteo[i + 1];
-        }
+    // Ajustes para los últimos dos ítems (sin palabra clave)
+    if (itemActual >= totalItems - 2) {
+        boxConsigna.style.paddingBottom = "0.5rem";
+        boxPalabra.style.display = "none";
+    } else {
+        boxPalabra.style.display = "";
+        boxConsigna.style.paddingBottom = "";
+    }
 
-        resultadoNro.textContent = opcionesConteo[1] + " " + opcionesConteo[2] + " " + opcionesConteo[3];
-        boxItem.style.display = "none";
-        boxResultado.style.display = "flex";
+    // Activar modo casa (íconos) para el último ítem
+    if (itemActual === totalItems - 1) {
+        activarModoCasa(opciones);
+    }
 
-        requestAnimationFrame(() => {
-            boxResultado.style.opacity = 1;
-            boxResultado.style.transform = "translateY(0)";
-        });
-        //Buscamos la opción que tenga el mayor número de selecciones
-        let estiloElegido = null
-        let maxValor = -Infinity;
-        for (let opcion in opcionesConteo) {
-            if (opcionesConteo[opcion] > maxValor) {
-                maxValor = opcionesConteo[opcion];
-                estiloElegido = opcion - 1;
-            }
-        }
-        const resultadoTitulo = document.getElementById("resultado__titutlo");
-        if (opcionesConteo[1] === opcionesConteo[2] && opcionesConteo[2] === opcionesConteo[3]) {
-            //Usa todos los estilos por igual
-            contenedorItem.classList.remove("alargarItem");
-            contenedorItem.classList.add("achicarResultadoTres");
-            //HASTA AQUÍ LOGICA 2 (icono casa seleccionable)
-            resultadoTitulo.innerHTML = "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " + resultados[0].tipo + ", " + resultados[1].tipo + " y " + resultados[2].tipo;
-            imgResultado.src = resultados[0].resultadoImg;
-            imgResultadoB.src = resultados[1].resultadoImg;
-            imgResultadoC.src = resultados[2].resultadoImg;
-            pResultado.innerHTML = resultados[0].descripcion + '<br>' + '<br>' + resultados[1].descripcion + '<br>' + '<br>' + resultados[2].descripcion;
-
-            spanResultado.style.display = "inline";
-            spanResultadoB.style.display = "inline";
-            spanResultadoC.style.display = "inline";
-            boxOtrosEstilos.style.display = "none"; //Se le quita el boton de otros estilos porque ya están todos
-
-        } else if (opcionesConteo[1] === opcionesConteo[2] && opcionesConteo[1] !== opcionesConteo[3] && opcionesConteo[1] >= maxValor) {
-            //Predominan los estilos visual y auditivo por igual
-            contenedorItem.classList.remove("alargarItem");
-            contenedorItem.classList.add("achicarResultadoUno");
-            //HASTA AQUÍ LOGICA 2
-            imgResultado.src = resultados[0].resultadoImg;
-            imgResultadoB.src = resultados[1].resultadoImg;
-            resultadoTitulo.innerHTML = "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " + resultados[0].tipo + " y " + resultados[1].tipo;
-            pResultado.innerHTML = resultados[0].descripcion + '<br>' + '<br>' + resultados[1].descripcion + '<br>';
-
-            spanResultado.style.display = "inline";
-            spanResultadoB.style.display = "inline";
-
-            resultadoSpans.forEach(spanR => {
-                spanR.style.maxWidth = "45%";
-                spanR.style.paddingLeft = "2.5%";
-                spanR.style.paddingRight = "2.5%";
-            });
-            //CONOCER MÁS: Se agrega imagen y descripción de estilo kinestésico
-            descripcionEstilo1.innerHTML = resultados[2].descripcion;
-            imgEstiloAlt1.src = resultados[2].resultadoImg;
-            boxEstilo2.style.display = 'none';
-
-        } else if (opcionesConteo[1] === opcionesConteo[3] && opcionesConteo[1] !== opcionesConteo[2] && opcionesConteo[1] >= maxValor) {
-            //Predominan los estilos visual y kinestésico por igual
-            contenedorItem.classList.remove("alargarItem");
-            contenedorItem.classList.add("achicarResultadoUno");
-            //HASTA AQUÍ LOGICA 2 (icono casa seleccionable)
-            resultadoTitulo.innerHTML = "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " + resultados[0].tipo + " y " + resultados[2].tipo;
-            imgResultado.src = resultados[0].resultadoImg;
-            imgResultadoC.src = resultados[2].resultadoImg;
-            pResultado.innerHTML = resultados[0].descripcion + '<br>' + '<br>' + resultados[2].descripcion + '<br>';
-
-            spanResultado.style.display = "inline";
-            spanResultadoC.style.display = "inline";
-
-            resultadoSpans.forEach(spanR => {
-                spanR.style.maxWidth = "45%";
-                spanR.style.paddingLeft = "2.5%";
-                spanR.style.paddingRight = "2.5%";
-            });
-            descripcionEstilo1.innerHTML = resultados[1].descripcion;
-            imgEstiloAlt1.src = resultados[1].resultadoImg;
-            boxEstilo2.style.display = 'none';
-
-        } else if (opcionesConteo[2] === opcionesConteo[3] && opcionesConteo[2] !== opcionesConteo[1] && opcionesConteo[2] >= maxValor) {
-            //Predominan los estilos auditivo y kinestésico por igual.
-            contenedorItem.classList.remove("alargarItem");
-            contenedorItem.classList.add("achicarResultadoUno");
-            //HASTA AQUÍ LOGICA 2 (icono casa seleccionable)
-            resultadoTitulo.innerHTML = "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " + resultados[1].tipo + " y " + resultados[2].tipo;
-            imgResultadoB.src = resultados[1].resultadoImg;
-            imgResultadoC.src = resultados[2].resultadoImg;
-            pResultado.innerHTML = resultados[1].descripcion + '<br>' + '<br>' + resultados[2].descripcion + '<br>';
-
-            spanResultadoB.style.display = "inline";
-            spanResultadoC.style.display = "inline";
-
-            resultadoSpans.forEach(spanR => {
-                spanR.style.maxWidth = "45%";
-                spanR.style.paddingLeft = "2.5%";
-                spanR.style.paddingRight = "2.5%";
-            });
-            descripcionEstilo1.innerHTML = resultados[0].descripcion;
-            imgEstiloAlt1.src = resultados[0].resultadoImg;
-            boxEstilo2.style.display = 'none';
-        } else {
-            contenedorItem.classList.remove("alargarItem");
-            contenedorItem.classList.add("achicarResultadoDos");
-            //HASTA AQUÍ LOGICA 2
-            resultadoTitulo.textContent = "Presentas una preponderancia hacia el estilo de aprendizaje " + resultados[estiloElegido].tipo;
-            imgResultado.src = resultados[estiloElegido].resultadoImg;
-            pResultado.innerHTML = resultados[estiloElegido].descripcion;
-
-            spanResultado.style.display = "inline";
-            spanResultadoB.style.display = "inline";
-            spanResultadoC.style.display = "inline";
-
-            resultadoSpans.forEach(spanR => {
-                spanR.style.paddingLeft = 0;
-                spanR.style.paddingRight = 0;
-            });
-
-            let opcionesEstilo = [0, 1, 2];
-            let pepito = false;
-            opcionesEstilo.forEach(opEstilo => {
-                if (opEstilo != estiloElegido && pepito == false) {
-                    descripcionEstilo1.innerHTML = resultados[opEstilo].descripcion;
-                    imgEstiloAlt1.src = resultados[opEstilo].resultadoImg;
-                    pepito = true;
-                };
-                if (opEstilo != estiloElegido && pepito == true) {
-                    descripcionEstilo2.innerHTML = resultados[opEstilo].descripcion;
-                    imgEstiloAlt2.src = resultados[opEstilo].resultadoImg;
-                };
-            });
-        };
-    };
+    // Ocultar error al cambiar de ítem
+    ocultarError();
 }
+
+/**
+ * Lógica del botón "Siguiente".
+ */
+function presionarSiguiente() {
+    if (itemActual < items.length - 1 && validarClick()) {
+        sumarValorElegido();
+
+        // Fade out con transition (sin parpadeo)
+        contenedor2.classList.add("is-transitioning");
+
+        setTimeout(function () {
+            itemActual++;
+            insertarItem();
+
+            // Pequeño reflow forzado para que la transición de entrada
+            // empiece desde opacity:0 y no salte directamente a 1
+            void contenedor2.offsetWidth;
+            contenedor2.classList.remove("is-transitioning");
+        }, 320);
+
+        // Mostrar botón Terminar en el último ítem.
+        // Nota: este timeout corre a 350ms, DESPUÉS de que el timeout de 320ms
+        // ya incrementó itemActual, por eso comparamos directo (no +1).
+        setTimeout(function () {
+            if (itemActual === items.length - 1) {
+                botonSiguiente.style.display = "none";
+                botonTerminar.style.display = "inline-flex";
+            }
+        }, 350);
+    }
+}
+
+/**
+ * Lógica del botón "Terminar Test".
+ */
+function presionarTerminar() {
+    if (!validarClick()) return;
+
+    sumarValorElegido();
+
+    // Actualizar progreso al 100%
+    progressBar.style.width = "100%";
+
+    const boxItem      = document.querySelector(".box-item");
+    const boxResultado = document.querySelector(".box-resultado");
+    const imgResultado  = document.getElementById("imgResultado");
+    const imgResultadoB = document.getElementById("imgResultadoB");
+    const imgResultadoC = document.getElementById("imgResultadoC");
+    const pResultado    = document.getElementById("resultadoDescripcion");
+    const resultadoNros = document.querySelectorAll(".resultadoNro");
+    const spanResultado  = document.getElementById("spanResultado");
+    const spanResultadoB = document.getElementById("spanResultadoB");
+    const spanResultadoC = document.getElementById("spanResultadoC");
+    const resultadoSpans = document.querySelectorAll(".spanResultadoImg");
+    const boxOtrosEstilos = document.querySelector(".box-otrosEstilos");
+    const imgEstiloAlt1   = document.getElementById("estiloAlternativo1");
+    const imgEstiloAlt2   = document.getElementById("estiloAlternativo2");
+    const descripcionEstilo1 = document.querySelector(".estilo1");
+    const descripcionEstilo2 = document.querySelector(".estilo2");
+    const boxEstilo2      = document.getElementById("box-estilo2");
+
+    // Mostrar puntajes numéricos
+    for (let i = 0; i < 3; i++) {
+        resultadoNros[i].textContent = opcionesConteo[i + 1];
+    }
+
+    // Cambiar vista: ítem → resultado
+    boxItem.style.display = "none";
+    boxResultado.style.display = "flex";
+    requestAnimationFrame(() => {
+        boxResultado.style.opacity = 1;
+        boxResultado.style.transform = "translateY(0)";
+    });
+
+    // Determinar estilo predominante
+    let estiloElegido = null;
+    let maxValor = -Infinity;
+    for (let opcion in opcionesConteo) {
+        if (opcionesConteo[opcion] > maxValor) {
+            maxValor = opcionesConteo[opcion];
+            estiloElegido = opcion - 1;
+        }
+    }
+
+    const resultadoTitulo = document.getElementById("resultado__titutlo");
+    const c1 = opcionesConteo[1], c2 = opcionesConteo[2], c3 = opcionesConteo[3];
+
+    if (c1 === c2 && c2 === c3) {
+        // Todos los estilos por igual
+        resultadoTitulo.innerHTML =
+            "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " +
+            resultados[0].tipo + ", " + resultados[1].tipo + " y " + resultados[2].tipo;
+        imgResultado.src  = resultados[0].resultadoImg;
+        imgResultadoB.src = resultados[1].resultadoImg;
+        imgResultadoC.src = resultados[2].resultadoImg;
+        pResultado.innerHTML =
+            resultados[0].descripcion + "<br><br>" +
+            resultados[1].descripcion + "<br><br>" +
+            resultados[2].descripcion;
+        spanResultado.style.display  = "inline-block";
+        spanResultadoB.style.display = "inline-block";
+        spanResultadoC.style.display = "inline-block";
+        boxOtrosEstilos.style.display = "none";
+
+    } else if (c1 === c2 && c1 !== c3 && c1 >= maxValor) {
+        // Visual y Auditivo por igual
+        resultadoTitulo.innerHTML =
+            "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " +
+            resultados[0].tipo + " y " + resultados[1].tipo;
+        imgResultado.src  = resultados[0].resultadoImg;
+        imgResultadoB.src = resultados[1].resultadoImg;
+        pResultado.innerHTML = resultados[0].descripcion + "<br><br>" + resultados[1].descripcion;
+        spanResultado.style.display  = "inline-block";
+        spanResultadoB.style.display = "inline-block";
+        descripcionEstilo1.innerHTML = resultados[2].descripcion;
+        imgEstiloAlt1.src = resultados[2].resultadoImg;
+        boxEstilo2.style.display = "none";
+
+    } else if (c1 === c3 && c1 !== c2 && c1 >= maxValor) {
+        // Visual y Kinestésico por igual
+        resultadoTitulo.innerHTML =
+            "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " +
+            resultados[0].tipo + " y " + resultados[2].tipo;
+        imgResultado.src  = resultados[0].resultadoImg;
+        imgResultadoC.src = resultados[2].resultadoImg;
+        pResultado.innerHTML = resultados[0].descripcion + "<br><br>" + resultados[2].descripcion;
+        spanResultado.style.display  = "inline-block";
+        spanResultadoC.style.display = "inline-block";
+        descripcionEstilo1.innerHTML = resultados[1].descripcion;
+        imgEstiloAlt1.src = resultados[1].resultadoImg;
+        boxEstilo2.style.display = "none";
+
+    } else if (c2 === c3 && c2 !== c1 && c2 >= maxValor) {
+        // Auditivo y Kinestésico por igual
+        resultadoTitulo.innerHTML =
+            "Presentas una preponderancia equitativa hacia los estilos de aprendizaje " +
+            resultados[1].tipo + " y " + resultados[2].tipo;
+        imgResultadoB.src = resultados[1].resultadoImg;
+        imgResultadoC.src = resultados[2].resultadoImg;
+        pResultado.innerHTML = resultados[1].descripcion + "<br><br>" + resultados[2].descripcion;
+        spanResultadoB.style.display = "inline-block";
+        spanResultadoC.style.display = "inline-block";
+        descripcionEstilo1.innerHTML = resultados[0].descripcion;
+        imgEstiloAlt1.src = resultados[0].resultadoImg;
+        boxEstilo2.style.display = "none";
+
+    } else {
+        // Un único estilo predominante
+        resultadoTitulo.textContent =
+            "Presentas una preponderancia hacia el estilo de aprendizaje " +
+            resultados[estiloElegido].tipo;
+        imgResultado.src = resultados[estiloElegido].resultadoImg;
+        pResultado.innerHTML = resultados[estiloElegido].descripcion;
+        spanResultado.style.display = "inline-block";
+
+        // Llenar "conocer otros estilos"
+        let primerEstiloAsignado = false;
+        [0, 1, 2].forEach(indiceEstilo => {
+            if (indiceEstilo !== estiloElegido) {
+                if (!primerEstiloAsignado) {
+                    descripcionEstilo1.innerHTML = resultados[indiceEstilo].descripcion;
+                    imgEstiloAlt1.src = resultados[indiceEstilo].resultadoImg;
+                    primerEstiloAsignado = true;
+                } else {
+                    descripcionEstilo2.innerHTML = resultados[indiceEstilo].descripcion;
+                    imgEstiloAlt2.src = resultados[indiceEstilo].resultadoImg;
+                }
+            }
+        });
+    }
+}
+
+/**
+ * Muestra otros estilos de aprendizaje al hacer clic en "Conocer otros estilos".
+ */
 function presionarConocerMas() {
-    const separador = document.querySelector(".separador"); 
-    contenedorItem.classList.add("achicarResultadoTres");
-    otrosEstilos.style.display = "flex";
-    separador.style.display = "flex";
+    const separador   = document.querySelector(".separador");
+    const otrosEstilos = document.querySelector(".otrosEstilos");
+    otrosEstilos.style.display  = "flex";
+    separador.style.display     = "flex";
     botonConocerMas.style.display = "none";
 }
 
-//FUNCIÓN VALIDAR SI HIZO CLICK
+// ── UTILIDADES ─────────────────────────────────────────────
+
+/**
+ * Valida que el usuario haya seleccionado una opción.
+ * Muestra un mensaje inline si no lo hizo.
+ * @returns {boolean}
+ */
 function validarClick() {
-    let hizoClick = false;
-    radioButtons.forEach((radioButton) => {
-        if (radioButton.checked == true) {
-            hizoClick = true;
-        }
-    });
-    if (hizoClick !== true) {
-        alert("Debe seleccionar una opción para avanzar");
-    };
-    return hizoClick;
-};
-//FUNCIÓN SUMAR VALOR ELEGIDO
+    const seleccionado = Array.from(radioButtons).some(rb => rb.checked);
+    if (!seleccionado) {
+        mostrarError();
+    }
+    return seleccionado;
+}
+
+/**
+ * Muestra el mensaje de error inline.
+ */
+function mostrarError() {
+    errorMsg.classList.add("visible");
+}
+
+/**
+ * Oculta el mensaje de error inline.
+ */
+function ocultarError() {
+    errorMsg.classList.remove("visible");
+}
+
+/**
+ * Suma +1 al estilo correspondiente a la opción seleccionada
+ * y deselecciona todos los radio buttons.
+ */
 function sumarValorElegido() {
     let opcionSeleccionada;
-    radioButtons.forEach((radioButton) => {
-        if (radioButton.checked) {
-            opcionSeleccionada = radioButton.value;
-        };
+    radioButtons.forEach(rb => {
+        if (rb.checked) opcionSeleccionada = rb.value;
     });
     if (opcionSeleccionada) {
         opcionesConteo[opcionSeleccionada]++;
-        console.log("Se han elegido hasta ahora ", opcionesConteo, " véces cada opción.");
-    };
-    //Deseleccionamos los inputs radio para la próxima selección.
-    radioButtons.forEach((radioButton) => {
-        radioButton.checked = false;
-    });
-};
+    }
+    // Deseleccionar para la próxima pregunta
+    radioButtons.forEach(rb => { rb.checked = false; });
+}
+
+// ── MODO CASA ──────────────────────────────────────────────
+
+/**
+ * Configura el último ítem (casas) para mostrar íconos en lugar
+ * de texto en los labels, y muestra la descripción al seleccionar.
+ * @param {Array} opciones - Las opciones del ítem de casas.
+ */
+function activarModoCasa(opciones) {
+    const boxOpciones   = document.querySelector(".box-opciones");
+    const boxOpcionCasa = document.querySelector(".box-opcionCasa");
+    const pOpcionCasa   = document.getElementById("p-opcionCasa");
+    const boxPCasa      = document.querySelector(".box-pCasa");
+
+    // Layout horizontal
+    boxOpciones.classList.add("box-opciones--casas");
+
+    // Mostrar letras A, B, C
+    boxPCasa.classList.add("visible");
+
+    // Configurar cada label con solo el ícono de casa
+    for (let i = 0; i < opciones.length; i++) {
+        const label = document.querySelector(`label[for=opcion${i + 1}]`);
+        label.innerHTML = '<i class="fa-solid fa-house-chimney fa-2x"></i>';
+        label.classList.add("labelCasa");
+
+        const input = document.getElementById(`opcion${i + 1}`);
+        input.addEventListener("change", function () {
+            // Actualizar texto descriptivo de la casa elegida
+            pOpcionCasa.innerHTML = opciones[i].texto;
+            // Mostrar el div si estaba oculto
+            boxOpcionCasa.style.display = "flex";
+            // Forzar reflow para que la transición de opacidad funcione
+            void boxOpcionCasa.offsetWidth;
+            boxOpcionCasa.style.opacity = "1";
+        });
+    }
+
+    // Preparar el div de descripción (visible pero transparente)
+    boxOpcionCasa.style.display  = "flex";
+    boxOpcionCasa.style.opacity  = "0";
+}
+
+// ── REINTENTAR ─────────────────────────────────────────────
+
+/**
+ * Reinicia el test recargando la página.
+ */
+function reintentar() {
+    window.location.reload();
+}
+
+// ── DESCARGA DE RESULTADOS ─────────────────────────────────
+
+/**
+ * Captura el área de resultado y lo descarga como imagen PNG.
+ */
+async function descargarImagen() {
+    const areaResultado   = document.getElementById("area-resultado");
+    const accionesResultado = document.getElementById("resultado-acciones");
+
+    // Ocultar botones para una captura limpia
+    accionesResultado.style.visibility = "hidden";
+
+    try {
+        const canvas = await html2canvas(areaResultado, {
+            scale: 2,
+            backgroundColor: "#ffffff",
+            useCORS: true,
+            logging: false,
+        });
+        const link = document.createElement("a");
+        link.download = "resultado-test-medios-representacion.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    } finally {
+        accionesResultado.style.visibility = "";
+    }
+}
+
+/**
+ * Captura el área de resultado y lo descarga como PDF.
+ */
+async function descargarPDF() {
+    const areaResultado    = document.getElementById("area-resultado");
+    const accionesResultado = document.getElementById("resultado-acciones");
+
+    accionesResultado.style.visibility = "hidden";
+
+    try {
+        const canvas = await html2canvas(areaResultado, {
+            scale: 2,
+            backgroundColor: "#ffffff",
+            useCORS: true,
+            logging: false,
+        });
+
+        const imgData = canvas.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+
+        // Convertir px a mm (a 96 dpi: 1px = 0.2645 mm)
+        const pxToMm    = 0.2645;
+        const widthMm   = (canvas.width  / 2) * pxToMm;
+        const heightMm  = (canvas.height / 2) * pxToMm;
+
+        const pdf = new jsPDF({
+            orientation: heightMm > widthMm ? "portrait" : "landscape",
+            unit: "mm",
+            format: [widthMm, heightMm],
+        });
+
+        pdf.addImage(imgData, "PNG", 0, 0, widthMm, heightMm);
+        pdf.save("resultado-test-medios-representacion.pdf");
+    } finally {
+        accionesResultado.style.visibility = "";
+    }
+}
+
