@@ -96,7 +96,7 @@ const items = [
         ]
     },
     {
-        consigna: "Cierra tus ojos e imagina que vas llegando a la playa ¿Qué sucedió primero en tu mente?",
+        consigna: "Cerrá tus ojos e imaginá que vas llegando a la playa ¿Qué sucedió primero en tu mente?",
         opciones: [
             { texto: "Te imaginaste el mar, el cielo y viste el panorama en general. Quizá te fijaste primero en el hotel y su playa.", valor: "1" },
             { texto: "Escuchaste el sonido del mar y el graznido de las gaviotas, o el sonido de las palmeras con la brisa.", valor: "2" },
@@ -106,30 +106,40 @@ const items = [
     {
         consigna: "Elegí una de las siguientes casas",
         opciones: [
-            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La primera casa</strong> está situada en un área tranquila y sin ruido y todo lo que escuchas cuando sales, son los sonidos de los pájaros cantando. Está tan bien construida, que no notas el ruido del vecino. El interior de ella resuena con un carácter armónico, tan agradable, que te preguntas cómo puedes dejar pasar esta oportunidad.", valor: "2" },
-            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La segunda casa</strong> es bastante pintoresca. Tiene un aspecto muy tradicional. Puedes ver que tiene una perspectiva novedosa del patio y de la vista del jardín. Tiene amplios ventanales para recibir mucha luz y poder disfrutar de una vista maravillosa. También te llaman la atención los brillantes colores del interior. Está claro que es una muy buena compra.", valor: "1" },
-            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La tercera casa</strong> no está solamente construida sólidamente, sino que tiene una sensación especial de calidez. No es frecuente que entres en contacto con un lugar que toca tantos aspectos importantes. Es bastante espaciosa para sentir que puedes moverte con libertad y al mismo tiempo, es suficientemente cálida para sentirte cómodo. Dan ganas de disfrutarla de inmediato.", valor: "3" },
+            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La primera casa</strong> está situada en un área tranquila y sin ruido y todo lo que escuchás cuando salís, son los sonidos de los pájaros cantando. Está tan bien construida, que no notás el ruido del vecino. El interior de ella resuena con un carácter armónico, tan agradable, que te preguntás cómo podés dejar pasar esta oportunidad.", valor: "2" },
+            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La segunda casa</strong> es bastante pintoresca. Tiene un aspecto muy tradicional. Podés ver que tiene una perspectiva novedosa del patio y de la vista del jardín. Tiene amplios ventanales para recibir mucha luz y poder disfrutar de una vista maravillosa. También te llaman la atención los brillantes colores del interior. Está claro que es una muy buena compra.", valor: "1" },
+            { icono: '<i class="fa-solid fa-house-chimney fa-2x" style="color: #002d92;"></i>', texto: "<strong>La tercera casa</strong> no está solamente construida sólidamente, sino que tiene una sensación especial de calidez. No es frecuente que entres en contacto con un lugar que toca tantos aspectos importantes. Es bastante espaciosa para sentir que podés moverte con libertad y al mismo tiempo, es suficientemente cálida para sentirte cómodo. Dan ganas de disfrutarla de inmediato.", valor: "3" },
         ]
     },
 ];
-
 const resultados = [
     {
         tipo: "visual",
-        descripcion: '<strong>Visual:</strong> Tiendes a pensar en imágenes y a relacionarlas con ideas y conceptos. Ej. "Vi que me dijiste; Observo; Imagino".',
+        descripcion: `<strong>Procesamiento mental:</strong> Pensás principalmente mediante imágenes que se suceden con rapidez en tu cerebro, por lo que podés impacientarte con personas que van más despacio.<br><br>` +
+            `<strong>Aprendizaje:</strong> Tendés a pensar en imágenes y a relacionarlas con ideas y conceptos. Necesitás que te dejen ver lo que te están diciendo para asimilar verdaderamente la información.<br><br>` +
+            `<strong>Voz y ritmo:</strong> Hablás rápidamente y en un tono más alto para poder seguir la velocidad de tus imágenes mentales.<br><br>` +
+            `<strong>Vocabulario:</strong> Usás palabras como "mirar", "foco" o "perspectiva", y frases como "ya veo lo que querés decir" o "el futuro parece brillante".`,
         resultadoImg: "visual-style.png",
     },
     {
         tipo: "auditivo",
-        descripcion: '<strong>Auditivo:</strong> Tiendes a recordar mejor la información siguiendo y rememorando una explicación oral. Ej."En otras palabras; te escucho; Oye".',
+        descripcion: `<strong>Procesamiento mental:</strong> Tenés una voz interior que crea un diálogo continuo con el que probás argumentaciones, ensayás respuestas y reflexionás.<br><br>` +
+            `<strong>Aprendizaje:</strong> Tendés a recordar mejor la información rememorando una explicación oral. Para aprender necesitás escuchar las ideas de forma alta y clara.<br><br>` +
+            `<strong>Voz y ritmo:</strong> Tu tono de voz es claro, expresivo y resonante.<br><br>` +
+            `<strong>Vocabulario:</strong> Preferís palabras como "sonido", "ritmo" o "armonioso", y te expresás con frases como "en la misma onda" o "me suena a chino".`,
         resultadoImg: "auditivo-style.png",
     },
     {
         tipo: "kinestésico",
-        descripcion: '<strong>Kinestésico:</strong> Tu aprendizaje está relacionado a tus sensaciones y movimientos. Ej. "Siento, dame una mano; Lo tengo; Lo capto".',
+        descripcion: `<strong>Procesamiento mental:</strong> Basás tus actuaciones a partir de tus sentimientos y sensaciones en cada situación.<br><br>` +
+            `<strong>Aprendizaje:</strong> Tu aprendizaje está relacionado a tus sensaciones y movimientos. Para comprender realmente un tema, necesitás poder sentir los mensajes.<br><br>` +
+            `<strong>Voz y ritmo:</strong> Hablás lentamente, con largas pausas, y tu voz tiene un tono más profundo.<br><br>` +
+            `<strong>Vocabulario:</strong> Elegís palabras como "tocar", "sólido" o "presión", y usás frases como "estaremos en contacto", "lo siento en el alma" o "bases firmes".`,
         resultadoImg: "kinestesico-style.png",
     },
 ];
+
+
 
 // ── ESTADO ─────────────────────────────────────────────────
 const opcionesConteo = { 1: 0, 2: 0, 3: 0 };
