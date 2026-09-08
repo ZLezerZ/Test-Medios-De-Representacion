@@ -266,6 +266,20 @@ function presionarSiguiente() {
 }
 
 /**
+ * Genera el HTML de un bloque de descripción con encabezado del nombre del estilo.
+ * Se usa cuando se muestran múltiples estilos juntos para diferenciarlos visualmente.
+ * @param {Object} resultado - Objeto del estilo en resultados
+ * @returns {string} HTML del bloque
+ */
+function bloqueEstilo(resultado) {
+    const nombre = resultado.tipo.charAt(0).toUpperCase() + resultado.tipo.slice(1);
+    return `<div class="desc-bloque">
+        <p class="desc-bloque__titulo">${nombre}</p>
+        <div class="desc-bloque__contenido">${resultado.descripcion}</div>
+    </div>`;
+}
+
+/**
  * Lógica del botón "Terminar Test".
  */
 function presionarTerminar() {
@@ -329,9 +343,9 @@ function presionarTerminar() {
         imgResultadoB.src = resultados[1].resultadoImg;
         imgResultadoC.src = resultados[2].resultadoImg;
         pResultado.innerHTML =
-            resultados[0].descripcion + "<br><br>" +
-            resultados[1].descripcion + "<br><br>" +
-            resultados[2].descripcion;
+            bloqueEstilo(resultados[0]) +
+            bloqueEstilo(resultados[1]) +
+            bloqueEstilo(resultados[2]);
         spanResultado.style.display  = "inline-block";
         spanResultadoB.style.display = "inline-block";
         spanResultadoC.style.display = "inline-block";
@@ -344,7 +358,9 @@ function presionarTerminar() {
             resultados[0].tipo + " y " + resultados[1].tipo;
         imgResultado.src  = resultados[0].resultadoImg;
         imgResultadoB.src = resultados[1].resultadoImg;
-        pResultado.innerHTML = resultados[0].descripcion + "<br><br>" + resultados[1].descripcion;
+        pResultado.innerHTML =
+            bloqueEstilo(resultados[0]) +
+            bloqueEstilo(resultados[1]);
         spanResultado.style.display  = "inline-block";
         spanResultadoB.style.display = "inline-block";
         descripcionEstilo1.innerHTML = resultados[2].descripcion;
@@ -358,7 +374,9 @@ function presionarTerminar() {
             resultados[0].tipo + " y " + resultados[2].tipo;
         imgResultado.src  = resultados[0].resultadoImg;
         imgResultadoC.src = resultados[2].resultadoImg;
-        pResultado.innerHTML = resultados[0].descripcion + "<br><br>" + resultados[2].descripcion;
+        pResultado.innerHTML =
+            bloqueEstilo(resultados[0]) +
+            bloqueEstilo(resultados[2]);
         spanResultado.style.display  = "inline-block";
         spanResultadoC.style.display = "inline-block";
         descripcionEstilo1.innerHTML = resultados[1].descripcion;
@@ -372,7 +390,9 @@ function presionarTerminar() {
             resultados[1].tipo + " y " + resultados[2].tipo;
         imgResultadoB.src = resultados[1].resultadoImg;
         imgResultadoC.src = resultados[2].resultadoImg;
-        pResultado.innerHTML = resultados[1].descripcion + "<br><br>" + resultados[2].descripcion;
+        pResultado.innerHTML =
+            bloqueEstilo(resultados[1]) +
+            bloqueEstilo(resultados[2]);
         spanResultadoB.style.display = "inline-block";
         spanResultadoC.style.display = "inline-block";
         descripcionEstilo1.innerHTML = resultados[0].descripcion;

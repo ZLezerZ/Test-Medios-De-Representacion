@@ -549,15 +549,15 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--color-primary-light);
-    border: 1px solid var(--color-border);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a4db5 100%);
+    border: none;
     border-radius: 10px;
     padding: 0.5rem 1rem;
     min-width: 70px;
 }
 
 .resultadoNro {
-    color: var(--color-primary);
+    color: #ffffff;
     font-size: 1.6rem;
     font-weight: 700;
     margin: 0;
@@ -567,7 +567,7 @@ button {
 .descResultadoNro {
     font-size: 0.72rem;
     font-weight: 600;
-    color: var(--color-primary);
+    color: rgba(255, 255, 255, 0.9);
     margin: 0.2rem 0 0;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -623,6 +623,32 @@ button {
     font-size: 0.9rem;
     color: var(--color-text);
     margin: 0;
+    line-height: 1.6;
+}
+
+.desc-bloque {
+    margin-bottom: 1.25rem;
+}
+
+.desc-bloque:last-child {
+    margin-bottom: 0;
+}
+
+.desc-bloque__titulo {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a4db5 100%);
+    color: #ffffff !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    margin: 0 0 0.6rem 0 !important;
+    box-shadow: 0 2px 6px rgba(0, 45, 146, 0.2);
+}
+
+.desc-bloque__contenido {
     line-height: 1.6;
 }
 
