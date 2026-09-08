@@ -4,50 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/8c83a113b4.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="normalize.css">
+    <meta name="description" content="Test de Medios de Representación – Descubrí tu estilo de aprendizaje predominante: Visual, Auditivo o Kinestésico. Consultora Saladino.">
+    <meta name="author" content="Consultora Saladino">
     <link rel="icon" type="image/png" sizes="32x32" href="logo-saladinoICONO.png" />
-    <title>Medios de Representación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://kit.fontawesome.com/8c83a113b4.js" crossorigin="anonymous"></script>
+    <title>Test de Medios de Representación – Consultora Saladino</title>
 </head>
 
 <body>
-    <div class="contlogo"><img src="logo-saladino.png" alt="Logo-Consultora-Saladino"></div>
+
+    <!-- PANTALLA 1: Presentación y recomendaciones -->
     <div class="contenedor-general1">
         <div class="contenedor-recom">
+            <div class="logo-header">
+                <img src="logo-saladino.png" alt="Logo Consultora Saladino">
+            </div>
             <div class="caja-recom">
                 <div class="test-nombre">
-                    <p>Test de programación neurolingüística (PNL)</p>
+                    <h1>Test de Medios de Representación</h1>
                 </div>
                 <div class="recom">
-                    <p>Recomendaciones</p>
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> El test no le tomará más de 15
-                        minutos, tómese su tiempo</p>
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Una vez avance al siguiente ítem
-                        no podrá volver atrás</p>
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Realice el test en un entorno
-                        tranquilo y silencioso</p>
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Escoja de cada opción la que más
-                        lo
-                        represente
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Evite racionalizar demasiado sus
-                        respuestas
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> Evite salir de la página hasta
-                        finalizar el test</p>
-                    <p><i class="fa-solid fa-check fa-s" style="color: #006ae2;"></i> No recargue la página hasta
-                        finalizar
-                        el test</p>
-                    </p>
-                    </p>
-                    <p>Al finalizar podrá volver a repetir el test</p>
+                    <p class="recom-titulo">Recomendaciones</p>
+                    <ul class="recom-lista">
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> El test no le tomará más de 15 minutos, tómese su tiempo</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Una vez avance al siguiente ítem no podrá volver atrás</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Realice el test en un entorno tranquilo y silencioso</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Escoja de cada opción la que más lo represente</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Evite racionalizar demasiado sus respuestas</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Evite salir de la página hasta finalizar el test</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> No recargue la página hasta finalizar el test</li>
+                    </ul>
+                    <p class="recom-footer">Al finalizar podrá volver a repetir el test</p>
                 </div>
-                <span class="btn" id="btn-comenzar"><button>Comenzar</button></span>
+                <div class="btn-group">
+                    <button id="btn-comenzar">Comenzar</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- PANTALLA 2: Ítems del test y resultado -->
     <div class="contenedor-general2">
         <div class="contenedor-item">
+
+            <!-- Barra de progreso -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Tarjeta de ítem -->
             <div class="box-item">
                 <div class="box-consigna">
                     <p id="p-consigna"></p>
@@ -69,65 +79,97 @@
                     <label for="opcion3"></label>
                 </div>
 
-                <div class="box-opcionCasa">
+                <div class="box-opcionCasa" id="box-opcionCasa">
                     <p id="p-opcionCasa" class="p-opcionCasa"></p>
                 </div>
-                <span class="btn">
-                    <button id="btn-siguiente">Siguiente</button>
-                    <button id="btn-terminar">Terminar Test</button>
-                </span>
-                <div class="contadorItem">
-                    <p>Item</p>
-                    <p id="pContadorItem"></p>
+
+                <!-- Mensaje de error inline -->
+                <div class="error-msg" id="errorMsg" role="alert" aria-live="polite">
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                    Debe seleccionar una opción para avanzar
+                </div>
+
+                <div class="contador-y-botones">
+                    <div class="contadorItem">
+                        <span class="contador-label">Ítem</span>
+                        <span id="pContadorItem" class="contador-numero"></span>
+                    </div>
+                    <div class="btn-group">
+                        <button id="btn-siguiente">Siguiente <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                        <button id="btn-terminar">Finalizar Test <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i></button>
+                    </div>
                 </div>
             </div>
 
-            <div class="box-resultado">
+            <!-- Pantalla de resultado -->
+            <div class="box-resultado" id="area-resultado">
                 <div class="contenedor-resultado__titulo">
-                    <p>¡Felicitaciones! Tu puntaje es:</p>
+                    <p class="felicitaciones">¡Felicitaciones!</p>
+                    <p class="puntaje-label">Tu puntaje es:</p>
                     <div class="box-resultadoNro">
-                        <span>
+                        <span class="resultado-chip">
                             <p class="resultadoNro"></p>
                             <p class="descResultadoNro">Visual</p>
                         </span>
-                        <span>
+                        <span class="resultado-chip">
                             <p class="resultadoNro"></p>
                             <p class="descResultadoNro">Auditivo</p>
                         </span>
-                        <span>
+                        <span class="resultado-chip">
                             <p class="resultadoNro"></p>
                             <p class="descResultadoNro">Kinésico</p>
                         </span>
                     </div>
-                    <p id="resultado__titutlo"></p>
+                    <p id="resultado__titutlo" class="resultado-titulo-texto"></p>
                 </div>
+
                 <div class="box-imgResultado">
-                    <span id="spanResultado" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultado"></img></span>
-                    <span id="spanResultadoB" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoB"></img></span>
-                    <span id="spanResultadoC" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoC"></img></span>
+                    <span id="spanResultado" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultado" alt="Estilo de aprendizaje Visual" /></span>
+                    <span id="spanResultadoB" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoB" alt="Estilo de aprendizaje Auditivo" /></span>
+                    <span id="spanResultadoC" class="spanResultadoImg"><img src="" class="imagenResultado" id="imgResultadoC" alt="Estilo de aprendizaje Kinestésico" /></span>
                 </div>
+
                 <div class="contenedor-resultado__descripcion">
                     <p id="resultadoDescripcion"></p>
                 </div>
+
                 <div class="box-otrosEstilos">
                     <span class="separador"></span>
                     <div class="otrosEstilos">
                         <div class="div-otrosEstilos">
-                            <img src="" id="estiloAlternativo1">
+                            <img src="" id="estiloAlternativo1" alt="Estilo alternativo 1" />
                             <p class="estilo1"></p>
                         </div>
                         <div class="div-otrosEstilos" id="box-estilo2">
-                            <img src="" id="estiloAlternativo2">
+                            <img src="" id="estiloAlternativo2" alt="Estilo alternativo 2" />
                             <p class="estilo2"></p>
                         </div>
                     </div>
-                    <span class="span__boton">
-                        <button id="conocerMas">Conocer otros estilos</button>
-                    </span>
+                    <div class="span__boton">
+                        <button id="conocerMas">Conocer otros estilos <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+                <!-- Acciones finales: reintentar y descargar -->
+                <div class="resultado-acciones" id="resultado-acciones">
+                    <button id="btn-reintentar" class="btn-reintentar">
+                        <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Volver a intentar
+                    </button>
+                    <button id="btn-descargar-img" class="btn-descargar">
+                        <i class="fa-solid fa-image" aria-hidden="true"></i> Guardar imagen
+                    </button>
+                    <button id="btn-descargar-pdf" class="btn-descargar">
+                        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Guardar PDF
+                    </button>
                 </div>
             </div>
+
         </div>
     </div>
+
+    <!-- Librerías para descarga de resultados -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 
